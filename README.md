@@ -10,14 +10,13 @@ users テーブル
 | nickname                  | string  | null: false |
 | first_name                | string  | null: false |
 | last_name                 | string  | null: false |
-| identification_first_name | string  | null: false |
-| identification_last_name  | string  | null: false |
-| birthday                  | integer | null: false |
+| first_name_kana           | string  | null: false |
+| last_name_kana            | string  | null: false |
+| birthday                  | date    | null: false |
 
 Association
 - has_many :items
 - has_many :orders
-- has_one :shipping
 
 
 
@@ -25,13 +24,14 @@ itemsテーブル
 
 |  Column                   | Type     | Options     |
 | ------------------------- | -------- | ----------- |
-| item_name                 | string   | null: false |
+| name                      | string   | null: false |
 | price                     | integer  | null: false |
 | description               | text     | null: false |
-| category                  | string   | null: false |
-| status                    | string   | null: false |
-| delivery_charge           | integer  | null: false |
-| delivery_day              | integer  | null: false |
+| category-id               | integer  | null: false |
+| status_id                 | integer  | null: false |
+| delivery_charge_id        | integer  | null: false |
+| shipping_area_id          | integer  | null: false |
+| delivery_day_id           | integer  | null: false |
 | user                      |reference | null: false |
 
 Association
@@ -43,10 +43,6 @@ ordersテーブル
 
 |  Column                   | Type      | Options     |
 | ------------------------- | --------- | ----------- |
-| comment                   | text      | null: false |
-| card_number               | integer   | null: false |
-| term                      | integer   | null: false |
-| security                  | integer   | null: false |
 | user                      | reference | null: false |
 | item                      | reference | null: false |
 
@@ -62,16 +58,14 @@ shippingsテーブル
 
   Column                    | Type      | Options      |
 | ------------------------- | --------- | -----------  |
-| postal_code               | integer   | null: false  |
-| prefectures               | string    | null: false  |
+| postal_code               | string    | null: false  |
+| prefectures_id            | integer   | null: false  |
 | city                      | string    | null: false  |
-| address                   | integer   | null: false  |
-| building_name             | string    | null: false  |
-| cellphone number          | integer   | null: false  |
-| user                      | reference | null: false  |
+| address                   | string    | null: false  |
+| building_name             | string    |              |
+| cellphone number          | string    | null: false  |
 | order                     | reference | null: false  |
 
 
 Association
-belongs_to user
 belongs_to order
