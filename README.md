@@ -6,7 +6,7 @@ users テーブル
 |  Column                   | Type    | Options     |
 | ------------------------- | ------- | ----------- |
 | email                     | string  | null: false |
-| password                  | string  | null: false |
+| encrypted_password        | string  | null: false |
 | nickname                  | string  | null: false |
 | first_name                | string  | null: false |
 | last_name                 | string  | null: false |
@@ -22,17 +22,17 @@ Association
 
 itemsテーブル
 
-|  Column                   | Type     | Options     |
-| ------------------------- | -------- | ----------- |
-| name                      | string   | null: false |
-| price                     | integer  | null: false |
-| description               | text     | null: false |
-| category-id               | integer  | null: false |
-| status_id                 | integer  | null: false |
-| delivery_charge_id        | integer  | null: false |
-| shipping_area_id          | integer  | null: false |
-| delivery_day_id           | integer  | null: false |
-| user                      |reference | null: false |
+|  Column                   | Type      | Options     |
+| ------------------------- | --------- | ----------- |
+| name                      | string    | null: false |
+| price                     | integer   | null: false |
+| description               | text      | null: false |
+| category_id               | integer   | null: false |
+| status_id                 | integer   | null: false |
+| delivery_charge_id        | integer   | null: false |
+| shipping_area_id          | integer   | null: false |
+| delivery_day_id           | integer   | null: false |
+| user                      |references | null: false |
 
 Association
 - belongs_to :user
@@ -41,10 +41,10 @@ Association
 
 ordersテーブル
 
-|  Column                   | Type      | Options     |
-| ------------------------- | --------- | ----------- |
-| user                      | reference | null: false |
-| item                      | reference | null: false |
+|  Column                   | Type       | Options     |
+| ------------------------- | ---------- | ----------- |
+| user                      | references | null: false |
+| item                      | references | null: false |
 
 Association
 - belongs_to :user
@@ -56,15 +56,15 @@ Association
 
 shippingsテーブル
 
-  Column                    | Type      | Options      |
-| ------------------------- | --------- | -----------  |
-| postal_code               | string    | null: false  |
-| prefectures_id            | integer   | null: false  |
-| city                      | string    | null: false  |
-| address                   | string    | null: false  |
-| building_name             | string    |              |
-| cellphone number          | string    | null: false  |
-| order                     | reference | null: false  |
+  Column                    | Type       | Options      |
+| ------------------------- | ---------- | -----------  |
+| postal_code               | string     | null: false  |
+| prefectures_id            | integer    | null: false  |
+| city                      | string     | null: false  |
+| address                   | string     | null: false  |
+| building_name             | string     |              |
+| cellphone number          | string     | null: false  |
+| order                     | references | null: false  |
 
 
 Association
