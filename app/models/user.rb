@@ -8,7 +8,11 @@ class User < ApplicationRecord
   validates_format_of :password, with: PASSWORD_REGEX
 
   validates :email, uniqueness: true
-  validates :birthday, presence: true
+
+  with_options presence: true do
+    validates :birthday
+    validates :nickname
+  end
 
   with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/ } do
     validates :first_name
@@ -19,5 +23,5 @@ class User < ApplicationRecord
     validates :last_name_kana
   end
 
-  validates :nickname, presence: true
+
 end
