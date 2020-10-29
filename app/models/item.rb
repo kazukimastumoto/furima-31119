@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to_active_hash :DeliveryDay
 
   belongs_to :user
+  has_one :order
   has_one_attached :image
 
   validates :name, :description, :category_id, :status_id, :delivery_charge_id, :shipping_area_id, :delivery_day_id, :image, :price, presence: true
