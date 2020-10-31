@@ -1,16 +1,15 @@
 class OrdersController < ApplicationController
+  before_action :set_item , only: [:index, :create]
   before_action :move_to_bay, only: :index
   before_action :authenticate_user!, only: [:index]
   before_action :move_to_index, only: [:index]
   # protect_from_forgery :except => [:create]
 
   def index
-    @item = Item.find(params[:item_id])
     @order_form = OrderForm.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_form = OrderForm.new(form_params)
     if @order_form.valid?
       pay_item
@@ -26,16 +25,18 @@ class OrdersController < ApplicationController
     params.require(:order_form).permit(:postal_code, :prefectures_id, :city, :address, :building_name, :cellphone_number).merge(user_id: current_user.id,item_id: params[:item_id],token: params[:token])
   end
 
-  def move_to_index
+  def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def move_to_index
     if current_user.id == @item.user_id
       redirect_to root_path
     end
   end
 
   def move_to_bay
-    @item = Item.find(params[:item_id])
-    unless @item.order == nil
+    if @item.order != nil && user_signed_in?
       redirect_to root_path
     end
   end
