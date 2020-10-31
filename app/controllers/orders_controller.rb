@@ -1,9 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_item , only: [:index, :create]
-  before_action :move_to_bay, only: :index
   before_action :authenticate_user!, only: [:index]
+  before_action :move_to_bay, only: :index
   before_action :move_to_index, only: [:index]
-  # protect_from_forgery :except => [:create]
 
   def index
     @order_form = OrderForm.new
@@ -36,7 +35,7 @@ class OrdersController < ApplicationController
   end
 
   def move_to_bay
-    if @item.order != nil && user_signed_in?
+    if @item.order != nil
       redirect_to root_path
     end
   end
