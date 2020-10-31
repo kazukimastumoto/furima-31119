@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :move_to_bay, only: :index
   before_action :authenticate_user!, only: [:index]
   before_action :move_to_index, only: [:index]
   # protect_from_forgery :except => [:create]
@@ -28,6 +29,13 @@ class OrdersController < ApplicationController
   def move_to_index
     @item = Item.find(params[:item_id])
     if current_user.id == @item.user_id
+      redirect_to root_path
+    end
+  end
+
+  def move_to_bay
+    @item = Item.find(params[:item_id])
+    unless @item.order == nil
       redirect_to root_path
     end
   end
